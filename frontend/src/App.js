@@ -163,7 +163,7 @@ function FormattedAnswer({ text }) {
           return <p key={i}>{parts.map((p, j) => j % 2 === 1 ? <strong key={j}>{p}</strong> : p)}</p>;
         }
         if (line.startsWith('*') || line.startsWith('-')) {
-          return <li key={i}>{line.replace(/^[\*\-]\s*/, '')}</li>;
+          return <li key={i}>{line.replace(/^[*-]\s*/, '')}</li>;
         }
         if (line.trim() === '') return <br key={i} />;
         return <p key={i}>{line}</p>;
@@ -282,7 +282,8 @@ export default function App() {
 
     // Send first query automatically
     sendQuery(form.query, form);
-  }, [sessionId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context, loading, sessionId]);
 
   const sendQuery = useCallback(async (queryText, ctx = context) => {
     if (!queryText?.trim() || loading || !ctx) return;
