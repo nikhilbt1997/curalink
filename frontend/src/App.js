@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './App.css';
 
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE = 'https://curalink-node-api.onrender.com/api';
 
 function generateSessionId() {
   return 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
