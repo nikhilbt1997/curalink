@@ -46,6 +46,12 @@ const LinkIcon = () => (
     <polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
   </svg>
 );
+const UserIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+);
 
 // ── PUBLICATION CARD ──────────────────────────────────────────────────────────
 function PublicationCard({ pub, index }) {
@@ -280,7 +286,6 @@ export default function App() {
       console.error('Session init error:', err);
     }
 
-    // Send first query automatically
     sendQuery(form.query, form);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context, loading, sessionId]);
@@ -307,7 +312,6 @@ export default function App() {
       });
 
       const data = await resp.json();
-
       if (data.error) throw new Error(data.error);
 
       const assistantMsg = {
@@ -356,6 +360,9 @@ export default function App() {
           </div>
           {context && (
             <div className="context-pill">
+              {context.patientName && (
+                <span className="context-name"><UserIcon /> {context.patientName}</span>
+              )}
               <span className="context-disease">{context.disease}</span>
               {context.location && <span className="context-location">· {context.location}</span>}
             </div>
@@ -370,7 +377,7 @@ export default function App() {
         {messages.length === 0 && !loading && (
           <div className="empty-state">
             <div className="empty-icon"><PulseIcon /></div>
-            <h2>Ready to research</h2>
+            <h2>Ready to research{context?.patientName ? `, ${context.patientName}` : ''}</h2>
             <p>Ask anything about {context?.disease || 'your condition'}</p>
           </div>
         )}

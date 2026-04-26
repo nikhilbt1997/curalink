@@ -480,3 +480,14 @@ body {
   .header { padding: 12px 16px; }
   .input-area { padding: 12px 16px 16px; }
 }
+.context-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--green);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding-right: 6px;
+  border-right: 1px solid var(--border);
+  margin-right: 6px;
+}
